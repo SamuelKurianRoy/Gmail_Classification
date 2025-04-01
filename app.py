@@ -2,11 +2,36 @@ import streamlit as st
 import joblib
 import re
 from PIL import Image
+import requests
+
+def download_file(url, filename):
+    """Download a file from a given URL and save it locally."""
+    response = requests.get(url)
+    if response.status_code == 200:
+        with open(filename, "wb") as f:
+            f.write(response.content)
+    else:
+        raise Exception(f"Failed to download {filename}. HTTP Status Code: {response.status_code}")
+
+# Define file URLs (Use the raw content link from GitHub)
+base_url = "https://raw.githubusercontent.com/SamuelKurianRoy/Gmail_Classification/master/"
+files = {
+    "nb_model.pkl": "logistic_Gmail_Classifier.pkl",
+    "lr_model.pkl": "naive_bayes_Gmail_Classifier.pkl",
+    "vectorizer.pkl": "tfidf_vectorizer.pkl"
+}
+
+# Download and load models
+for local_name, file_name in files.items():
+    download_file(base_url + file_name, local_name)
 
 # Load models and vectorizer
-nb_model = joblib.load(r"https://github.com/SamuelKurianRoy/Gmail_Classification/blob/master/logistic_Gmail_Classifier.pkl")
-lr_model = joblib.load(r"https://github.com/SamuelKurianRoy/Gmail_Classification/blob/master/naive_bayes_Gmail_Classifier.pkl")
-vectorizer = joblib.load(r"https://github.com/SamuelKurianRoy/Gmail_Classification/blob/master/tfidf_vectorizer.pkl")
+nb_model = joblib.load("nb_model.pkl")
+lr_model = joblib.load("lr_model.pkl")
+vectorizer = joblib.load("vectorizer.pkl")
+
+print("Models and vectorizer loaded successfully!")
+
 
 # Set page config
 st.set_page_config(page_title="Spam Detector", page_icon="📧", layout="centered")
