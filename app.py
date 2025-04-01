@@ -4,9 +4,9 @@ import re
 from PIL import Image
 
 # Load models and vectorizer
-nb_model = joblib.load(r"C:\Users\hai\Desktop\Gmail_Classification\naive_bayes_Gmail_Classifier.pkl")
-lr_model = joblib.load(r"C:\Users\hai\Desktop\Gmail_Classification\logistic_Gmail_Classifier.pkl")
-vectorizer = joblib.load(r"C:\Users\hai\Desktop\Gmail_Classification\tfidf_vectorizer.pkl")
+nb_model = joblib.load(r"https://github.com/SamuelKurianRoy/Gmail_Classification/blob/master/logistic_Gmail_Classifier.pkl")
+lr_model = joblib.load(r"https://github.com/SamuelKurianRoy/Gmail_Classification/blob/master/naive_bayes_Gmail_Classifier.pkl")
+vectorizer = joblib.load(r"https://github.com/SamuelKurianRoy/Gmail_Classification/blob/master/tfidf_vectorizer.pkl")
 
 # Set page config
 st.set_page_config(page_title="Spam Detector", page_icon="📧", layout="centered")
